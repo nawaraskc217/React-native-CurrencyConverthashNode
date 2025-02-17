@@ -15,11 +15,13 @@ import {
 
 
 //Constants
-import { currencyByRupee } from './constants';
+
 //Component
 import CurrencyButton from './components/CurrencyButton';
 
 import Snackbar from 'react-native-snackbar';
+import { currencyByRupee } from './components/constants';
+import Demo from './components/Demo';
 
 
 
@@ -41,7 +43,7 @@ const App = (): JSX.Element => {
     const inputAmount = parseFloat(inputValue)
     if (!isNaN(inputAmount)) {
       const convertedValue = inputAmount * targetValue.value
-      const result = `${targetValue.symbol} ${convertedValue.toFixed(2)  }`
+      const result = `the country is ${targetValue.name} ${targetValue.symbol} ${convertedValue.toFixed(2)  }`
       setResultValue(result)
       setTargetCurrency(targetValue.name)
     } else {
@@ -55,17 +57,17 @@ const App = (): JSX.Element => {
 
   return (
     <>
-      <StatusBar/>
+  <StatusBar/>
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <View style={styles.rupeesContainer}>
-            <Text style={styles.rupee}>₹</Text>
+            <Text style={styles.rupee}>रु</Text>
             <TextInput
             maxLength={14}
             value={inputValue}
             clearButtonMode='always' //only for iOS
             onChangeText={setInputValue}
-            keyboardType='number-pad'
+            keyboardType='numeric'
             placeholder='Enter amount in Rupees'
             />
           </View>
@@ -77,7 +79,7 @@ const App = (): JSX.Element => {
         </View>
         <View style={styles.bottomContainer}>
           <FlatList
-          numColumns={3}
+          numColumns={5}
           data={currencyByRupee}
           keyExtractor={item => item.name}
           renderItem={({item}) => (
@@ -94,8 +96,8 @@ const App = (): JSX.Element => {
           />
         </View>
       </View>
-      
-    </>
+    
+  </>
   );
 }
 
